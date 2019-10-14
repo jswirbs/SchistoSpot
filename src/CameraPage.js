@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as FileSystem from 'expo-file-system';
@@ -7,59 +7,82 @@ import * as FileSystem from 'expo-file-system';
 import styles from './styles';
 
 export default class CameraPage extends React.Component {
-    camera = null;
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasCameraPermission: null,
+      photoUri: null
+    }
+  }
 
-    state = {
-        hasCameraPermission: null,
-    };
+  async componentDidMount() {
+    const camera = await Permissions.askAsync(Permissions.CAMERA);
+    const hasCameraPermission = (camera.status === 'granted');
 
-    async componentDidMount() {
-        const camera = await Permissions.askAsync(Permissions.CAMERA);
-        const hasCameraPermission = (camera.status === 'granted');
+    this.setState({ hasCameraPermission });
+  };
 
-        this.setState({ hasCameraPermission });
+  takePicture = () => {
+    if (this.camera) {
+      this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
+    }
+  };
 
-        FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
-          console.log(e, 'Directory exists');
-        });
-    };
+  onPictureSaved = photo => {
+    console.log('photoUri: ' + photo.uri);
+    this.setState({ photoUri: photo.uri });
+  };
 
-    takePicture = () => {
-        if (this.camera) {
-            this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
-        }
-    };
+  render() {
+    const { hasCameraPermission } = this.state;
 
-    onPictureSaved = async photo => {
-        await FileSystem.moveAsync({
-            from: photo.uri,
-            to: `${FileSystem.documentDirectory}photos/${Date.now()}.jpg`,
-        });
-        this.setState({ newPhotos: true });
+    if (hasCameraPermission === null) {
+      return <Text>Camera permissions is null.</Text>;
+    } else if (hasCameraPermission === false) {
+      return <Text>Access to camera has been denied.</Text>;
     }
 
-    render() {
-        const { hasCameraPermission } = this.state;
+    let content;
 
-        if (hasCameraPermission === null) {
-            return <Text>wut.</Text>;
-        } else if (hasCameraPermission === false) {
-            return <Text>Access to camera has been denied.</Text>;
-        }
+    // if photo has been taken, display it and a cancel button
+    if (this.state.photoUri) {
+      content = (
+        <>
+          <Image 
+            style={styles.cameraPreview}
+            source={{ uri: this.state.photoUri }} 
+          />
+          <TouchableOpacity
+            style={styles.captureButton}
+            onPress={() => this.setState({ photoUri: null })}
+          >
+            <Text>Cancel</Text>
+          </TouchableOpacity>
+        </>
+      );
 
-        return (
-            <View style={{ flex: 1 }}>
-                <Camera
-                    style={styles.cameraPreview}
-                    ref={camera => this.camera = camera}
-                />
-                <TouchableOpacity
-                    style={styles.captureButton}
-                    onPress={this.takePicture}
-                >
-                    <Text>Capture</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    };
+    // else, display the camera view and a capture button
+    } else {
+      content = (
+        <>
+          <Camera
+            style={styles.cameraPreview}
+            ref={camera => this.camera = camera}
+          />
+          <TouchableOpacity
+            style={styles.captureButton}
+            onPress={this.takePicture}
+          >
+            <Text>Capture</Text>
+          </TouchableOpacity>
+        </>
+      );
+    }
+
+    return (
+      <View style={{ flex: 1 }}>
+        { content }
+      </View>
+    );
+  };
 };
