@@ -4,8 +4,6 @@ import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as FileSystem from 'expo-file-system';
 
-import OpenCV from './OpenCV.js';
-
 import styles from './styles';
 
 export default class CameraPage extends React.Component {

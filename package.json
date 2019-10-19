@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "cloud-annotations": "^1.1.12",
     "expo": "^35.0.0",
     "expo-camera": "^7.0.0",
     "expo-file-system": "^7.0.0",

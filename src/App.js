@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, SafeAreaView, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import CameraPage from './CameraPage.js';
 
 export default class App extends React.Component {
@@ -17,7 +17,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           <TouchableOpacity style={styles.backButton} onPress={() => this.setState({renderCamera: false})}>
-            <Text style={styles.backButtonText}>back</Text>
+            <Text>back</Text>
           </TouchableOpacity>
           <CameraPage />
         </View>
@@ -47,12 +47,9 @@ const styles = StyleSheet.create({
     top: 50,
     left: 20,
     zIndex: 3,
-    padding: 10,
-    backgroundColor: '#11111166',
-    borderRadius: 6
   },
   backButtonText: {
-    fontSize: 20,
-    color: '#ffffff'
+    fontSize: 30,
+    color: 'white'
   }
 });
