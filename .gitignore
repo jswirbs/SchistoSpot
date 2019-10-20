@@ -9,3 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+.watchmanconfig
+.expo-shared/
+.DS_Store
+
