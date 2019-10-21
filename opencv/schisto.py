@@ -1,7 +1,3 @@
-"""
-NOTES: watershed / adaptive gaussian thresholding source: https://docs.opencv.org/master/d3/db4/tutorial_py_watershed.html
-
-"""
 import argparse
 import numpy as np
 import cv2
@@ -42,7 +38,7 @@ def adaptive_gaussian_threshold(src):
 
 def main():
   # arg parsing to get src file path
-  parser = argparse.ArgumentParser(description='Initial testing of image segmentation and object/blob detection.')
+  parser = argparse.ArgumentParser(description='Initial testing of object/blob detection.')
   parser.add_argument('src', type=str, help='filepath of src image')
   args = parser.parse_args()
 
@@ -57,17 +53,17 @@ def main():
   kernel = np.ones((3,3), np.uint8)
   opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel, iterations = 2)
   # sure background area
-  sure_background = cv2.dilate(opening, kernel, iterations=3)
+  sure_bg = cv2.dilate(opening,kernel,iterations=3)
   # Finding sure foreground area
-  distance_transform = cv2.distanceTransform(opening, cv2.DIST_L2, 5)
-  ret, sure_foreground = cv2.threshold(distance_transform, 0.7 * distance_transform.max(), 255, 0)
+  dist_transform = cv2.distanceTransform(opening, cv2.DIST_L2, 5)
+  ret, sure_fg = cv2.threshold(dist_transform, 0.7*dist_transform.max(), 255, 0)
   # Finding unknown region
-  sure_foreground = np.uint8(sure_foreground)
-  unknown = cv2.subtract(sure_background, sure_foreground)
+  sure_fg = np.uint8(sure_fg)
+  unknown = cv2.subtract(sure_bg, sure_fg)
 
 
   # Marker labelling
-  ret, markers = cv2.connectedComponents(sure_foreground)
+  ret, markers = cv2.connectedComponents(sure_fg)
   # Add one to all labels so that sure background is not 0, but 1
   markers += 1
   # Now, mark the region of unknown with zero
@@ -75,7 +71,6 @@ def main():
 
   markers = cv2.watershed(img, markers)
   img[markers == -1] = [255, 0, 0]
-
 
   plt.title('Analysis')
   plt.imshow(markers)

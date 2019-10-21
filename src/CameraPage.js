@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as FileSystem from 'expo-file-system';
 
-import styles from './styles';
+// import styles from './styles';
 
 export default class CameraPage extends React.Component {
   constructor(props) {
@@ -86,3 +86,24 @@ export default class CameraPage extends React.Component {
     );
   };
 };
+
+
+const { width: winWidth, height: winHeight } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  cameraPreview: {
+    height: winHeight - 100,
+    width: winWidth,
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  },
+  captureButton: {
+    position: 'absolute',
+    zIndex: 2,
+    width: winWidth,
+    bottom: 50,
+    alignItems: 'center'
+  }
+});
