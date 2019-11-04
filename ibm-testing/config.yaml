@@ -1,4 +1,0 @@
-buckets:
-  training: schistosomiasis-diagnosis
-  output: schistosomiasis-diagnosis-output
-name: schistosomiasis-diagnosis
