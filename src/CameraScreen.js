@@ -4,9 +4,9 @@ import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as FileSystem from 'expo-file-system';
 
-// import styles from './styles';
+import styles from './styles.js';
 
-export default class CameraPage extends React.Component {
+export default class CameraScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +56,7 @@ export default class CameraPage extends React.Component {
             style={styles.captureButton}
             onPress={() => this.setState({ photoUri: null })}
           >
-            <Text>Cancel</Text>
+            <Text style={styles.captureButtonText}>Cancel</Text>
           </TouchableOpacity>
         </>
       );
@@ -73,14 +73,14 @@ export default class CameraPage extends React.Component {
             style={styles.captureButton}
             onPress={this.takePicture}
           >
-            <Text>Capture</Text>
+            <Text style={styles.captureButtonText}>Capture</Text>
           </TouchableOpacity>
         </>
       );
     }
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         { content }
       </View>
     );
@@ -88,22 +88,22 @@ export default class CameraPage extends React.Component {
 };
 
 
-const { width: winWidth, height: winHeight } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-  cameraPreview: {
-    height: winHeight - 100,
-    width: winWidth,
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-  },
-  captureButton: {
-    position: 'absolute',
-    zIndex: 2,
-    width: winWidth,
-    bottom: 50,
-    alignItems: 'center'
-  }
-});
+// const { width: winWidth, height: winHeight } = Dimensions.get('window');
+//
+// const styles = StyleSheet.create({
+//   cameraPreview: {
+//     height: winHeight - 100,
+//     width: winWidth,
+//     left: 0,
+//     top: 0,
+//     right: 0,
+//     bottom: 0,
+//   },
+//   captureButton: {
+//     position: 'absolute',
+//     zIndex: 2,
+//     width: winWidth,
+//     bottom: 50,
+//     alignItems: 'center'
+//   }
+// });
