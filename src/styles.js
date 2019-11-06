@@ -29,15 +29,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 30,
-    marginBottom: 40
-  },
-  goToCameraButton: {
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: '#11111166'
-  },
   backButton: {
     position: 'absolute',
     top: 50,
