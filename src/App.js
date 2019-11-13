@@ -5,12 +5,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Home from './Home.js';
 import CameraScreen from './CameraScreen.js';
+import AnalysisStartScreen from './AnalysisStartScreen.js';
 
 
 
 const MainNavigator = createStackNavigator({
-  Home: { screen: Home },
-  CameraScreen: { screen: CameraScreen },
+  Home: Home,
+  AnalysisStartScreen: AnalysisStartScreen,
+  CameraScreen: CameraScreen,
 });
 
 const App = createAppContainer(MainNavigator);

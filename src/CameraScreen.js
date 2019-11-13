@@ -49,14 +49,14 @@ export default class CameraScreen extends React.Component {
       content = (
         <>
           <Image 
-            style={styles.cameraPreview}
+            style={stylesCS.cameraPreview}
             source={{ uri: this.state.photoUri }} 
           />
           <TouchableOpacity
-            style={styles.captureButton}
+            style={stylesCS.captureButton}
             onPress={() => this.setState({ photoUri: null })}
           >
-            <Text style={styles.captureButtonText}>Cancel</Text>
+            <Text style={stylesCS.captureButtonText}>Cancel</Text>
           </TouchableOpacity>
         </>
       );
@@ -66,14 +66,14 @@ export default class CameraScreen extends React.Component {
       content = (
         <>
           <Camera
-            style={styles.cameraPreview}
+            style={stylesCS.cameraPreview}
             ref={camera => this.camera = camera}
           />
           <TouchableOpacity
-            style={styles.captureButton}
+            style={stylesCS.captureButton}
             onPress={this.takePicture}
           >
-            <Text style={styles.captureButtonText}>Capture</Text>
+            <Text style={stylesCS.captureButtonText}>Capture</Text>
           </TouchableOpacity>
         </>
       );
@@ -88,22 +88,27 @@ export default class CameraScreen extends React.Component {
 };
 
 
-// const { width: winWidth, height: winHeight } = Dimensions.get('window');
-//
-// const styles = StyleSheet.create({
-//   cameraPreview: {
-//     height: winHeight - 100,
-//     width: winWidth,
-//     left: 0,
-//     top: 0,
-//     right: 0,
-//     bottom: 0,
-//   },
-//   captureButton: {
-//     position: 'absolute',
-//     zIndex: 2,
-//     width: winWidth,
-//     bottom: 50,
-//     alignItems: 'center'
-//   }
-// });
+const { width: winWidth, height: winHeight } = Dimensions.get('window');
+
+const stylesCS = StyleSheet.create({
+  cameraPreview: {
+    height: winHeight,
+    width: winWidth,
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  },
+  captureButton: {
+    zIndex: 2,
+    bottom: 150,
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#11111166',
+  },
+  captureButtonText: {
+    color: '#fff',
+    fontSize: 20
+  },
+});

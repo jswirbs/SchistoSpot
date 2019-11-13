@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, Text, TouchableOpacity, TextInput, Button } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, Text, TouchableOpacity } from 'react-native';
+import { Input, Button } from 'react-native-elements';
 import styles from './styles.js';
 import { firebase } from './firebase.js';
 
@@ -66,8 +67,16 @@ export default class Home extends React.Component {
           <TouchableOpacity style={stylesHome.touchableOpacityGoToCamera} onPress={() => navigate('CameraScreen')} >
             <Text>Go to camera</Text>
           </TouchableOpacity>
+
+
           <Button
-            style={stylesHome.buttonSignIn}
+            style={styles.button}
+            title='Start patient sample analysis'
+            onPress={() => navigate('AnalysisStartScreen')}
+          /> 
+
+          <Button
+            style={styles.button}
             title='Sign out'
             onPress={this.signOut}
           /> 
@@ -79,21 +88,23 @@ export default class Home extends React.Component {
       return (
         <KeyboardAvoidingView style={styles.container} behavior='padding' enabled>
           <Text style={stylesHome.textTitle}>SchistoSpot</Text>
-          <TextInput
-            style={stylesHome.textInput}
+          <Input
+            containerStyle={styles.input}
+            leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#bbb', paddingRight: 8 }}
             onChangeText={text => this.setState({ email: text })}
             placeholder='email'
             autoFocus={true}
           />
-          <TextInput
-            style={stylesHome.textInput}
+          <Input
+            containerStyle={styles.input}
+            leftIcon={{ type: 'font-awesome', name: 'lock', color: '#bbb', paddingRight: 12, paddingLeft: 4 }}
             onChangeText={text => this.setState({ password: text })}
             placeholder='password'
             secureTextEntry={true}
             onSubmitEditing={this.signIn}
           />
           <Button
-            style={stylesHome.buttonSignIn}
+            style={stylesHome.button}
             title='Sign in'
             onPress={this.signIn}
           /> 
@@ -118,9 +129,6 @@ const stylesHome = StyleSheet.create({
   },
   textErrorMessage: {
     color: '#884444'
-  },
-  buttonSignIn: {
-
   },
   textTitle: {
     fontSize: 30,
