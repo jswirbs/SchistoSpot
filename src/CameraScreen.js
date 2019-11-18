@@ -20,14 +20,24 @@ export default class CameraScreen extends React.Component {
     const hasCameraPermission = (camera.status === 'granted');
 
     this.setState({ hasCameraPermission });
+
   };
 
+  /**
+   * Take a picture through expo-camera
+   */
   takePicture = () => {
     if (this.camera) {
       this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
     }
   };
 
+  /**
+   * Callback function for expo-camera 'onPictureSaved' event.
+   * Sets the `photoUri` attribute in the state
+   * 
+   * @param  {Object} photo
+   */
   onPictureSaved = photo => {
     console.log('photoUri: ' + photo.uri);
     this.setState({ photoUri: photo.uri });
