@@ -6,6 +6,8 @@ import * as FileSystem from 'expo-file-system';
 
 import styles from './styles.js';
 
+const CAPTURE_INTERVAL_TIME = 1000;  // interval at which to capture photos, in milliseconds
+
 export default class CameraScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,16 @@ export default class CameraScreen extends React.Component {
    */
   takePicture = () => {
     if (this.camera) {
-      this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved });
+      var count = 0;
+      let captureInterval = setInterval(() => { 
+        this.camera.takePictureAsync({ onPictureSaved: this.onPictureSaved }).then(() => {
+          count++;
+          console.log(count);
+        }).catch(error => {
+          console.log('noooo: ', error);
+        }); 
+      }, CAPTURE_INTERVAL_TIME);
+      this.setState({ captureInterval });
     }
   };
 
@@ -42,6 +53,19 @@ export default class CameraScreen extends React.Component {
     console.log('photoUri: ' + photo.uri);
     this.setState({ photoUri: photo.uri });
   };
+
+  /**
+   * Cancel photo display and image capture interval, then return to camera preview screen
+   */
+  cancel = () => {
+    if (this.state.captureInterval) {
+      clearInterval(this.state.captureInterval);
+    }
+    this.setState({ 
+      captureInterval: null,
+      photoUri: null 
+    })
+  }
 
   render() {
     const { hasCameraPermission } = this.state;
@@ -59,12 +83,12 @@ export default class CameraScreen extends React.Component {
       content = (
         <>
           <Image 
-            style={stylesCS.cameraPreview}
+            style={stylesCS.image}
             source={{ uri: this.state.photoUri }} 
           />
           <TouchableOpacity
             style={stylesCS.captureButton}
-            onPress={() => this.setState({ photoUri: null })}
+            onPress={this.cancel}
           >
             <Text style={stylesCS.captureButtonText}>Cancel</Text>
           </TouchableOpacity>
@@ -75,10 +99,6 @@ export default class CameraScreen extends React.Component {
     } else {
       content = (
         <>
-          <Camera
-            style={stylesCS.cameraPreview}
-            ref={camera => this.camera = camera}
-          />
           <TouchableOpacity
             style={stylesCS.captureButton}
             onPress={this.takePicture}
@@ -91,6 +111,10 @@ export default class CameraScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Camera
+          style={stylesCS.cameraPreview}
+          ref={camera => this.camera = camera}
+        />
         { content }
       </View>
     );
@@ -102,6 +126,17 @@ const { width: winWidth, height: winHeight } = Dimensions.get('window');
 
 const stylesCS = StyleSheet.create({
   cameraPreview: {
+    zIndex: 1,
+    height: winHeight,
+    width: winWidth,
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  },
+  image: {
+    zIndex: 2,
+    position: 'absolute',
     height: winHeight,
     width: winWidth,
     left: 0,

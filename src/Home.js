@@ -132,6 +132,7 @@ const stylesHome = StyleSheet.create({
   },
   textTitle: {
     fontSize: 30,
+    marginTop: 40,
     marginBottom: 40
   },
   touchableOpacityGoToCamera: {

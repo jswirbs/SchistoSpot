@@ -2,7 +2,7 @@ import React from 'react';
 import { View, KeyboardAvoidingView, Text, StyleSheet } from 'react-native';
 import { ButtonGroup, Input, Button } from 'react-native-elements';
 
-import { db } from './firebase.js';
+import { db, firebase } from './firebase.js';
 
 import styles from './styles.js';
 
@@ -24,7 +24,6 @@ export default class AnalysisStartScreen extends React.Component {
    * then navigate to CameraScreen
    */
   confirmExistingPatientProfile = () => {
-    console.log(this.state.patientIdOrEmail);
     if (this.state.patientIdOrEmail == null) {
       this.setState({
         errorMessage: 'Please enter a patient id or email.'
@@ -36,7 +35,7 @@ export default class AnalysisStartScreen extends React.Component {
         if (querySnapshot.empty) {
           this.setState({
             email: null,
-            errorMessage: 'A patient with this email already was not found.'
+            errorMessage: 'A patient with this email was not found.'
           });
         // else, attempt to add a new patient profile
         } else {
@@ -102,6 +101,7 @@ export default class AnalysisStartScreen extends React.Component {
         db.collection('patients').add({
           name: this.state.name,
           email: this.state.email,
+          timestamp: firebase.firestore.Timestamp.fromDate(new Date())
         })
         .then(doc => {
           // on success, navigate to the CameraScreen to start analysis
