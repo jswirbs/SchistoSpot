@@ -25,6 +25,10 @@ export default class CameraScreen extends React.Component {
 
   };
 
+  componentWillUnmount () {
+    this.cancel();
+  }
+
   /**
    * Take a picture through expo-camera
    */
