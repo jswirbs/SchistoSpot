@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, Text, TouchableOpacity } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, ListItem } from 'react-native-elements';
 import styles from './styles.js';
 import { firebase } from './firebase.js';
 
@@ -64,6 +64,15 @@ export default class Home extends React.Component {
       return (
         <View style={styles.container}>
           <Text style={stylesHome.textTitle}>SchistoSpot</Text>
+          
+          <ListItem
+            key={1}
+            leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
+            title={'Start patient analysis'}
+            bottomDivider
+            chevron
+          />
+
           <TouchableOpacity style={stylesHome.touchableOpacityGoToCamera} onPress={() => navigate('CameraScreen')} >
             <Text>Go to camera</Text>
           </TouchableOpacity>
