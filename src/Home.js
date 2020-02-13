@@ -86,6 +86,12 @@ export default class Home extends React.Component {
 
           <Button
             style={styles.button}
+            title='Go to heatmap'
+            onPress={() => navigate('HeatmapView')}
+          /> 
+
+          <Button
+            style={styles.button}
             title='Sign out'
             onPress={this.signOut}
           /> 
