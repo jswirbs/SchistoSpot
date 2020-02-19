@@ -1,11 +1,12 @@
 import React from 'react';
 import MapView from 'react-native-maps';
+import Heatmap from 'react-native-maps';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import { db, firebase } from './firebase.js';
 
 
-export default class HeatmapView extends React.Component {
+export default class HeatmapScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,7 +24,11 @@ export default class HeatmapView extends React.Component {
 
       querySnapshot.forEach(doc => {
         infections.push(doc.data());
-        infectionsCoordinates.push(doc.data().coordinates);
+        infectionsCoordinates.push({
+          latitude: doc.data().coordinates.latitude,
+          longitude: doc.data().coordinates.longitude,
+          weight: 1
+        });
       })
 
       this.setState({
@@ -37,6 +42,7 @@ export default class HeatmapView extends React.Component {
   }
 
   render() {
+    console.log(this.state.infectionsCoordinates);
     return (
       <View style={styles.container}>
         <MapView style={styles.mapStyle}>
@@ -51,7 +57,17 @@ export default class HeatmapView extends React.Component {
             ))
           }
 
-
+          {
+            (this.state.infectionsCoordinates.length > 0) &&
+              (
+                <Heatmap 
+                  points={this.state.infectionsCoordinates}
+                  radius={20}
+                  opacity={1}
+                  gradient={{colors: ["#FF0000", "#FFFF00", "#00FF00"], startPoints: [0, .5, 1]}}
+                />
+              )
+          }
           
         </MapView>
       </View>

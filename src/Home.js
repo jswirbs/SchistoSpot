@@ -1,8 +1,35 @@
 import React from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, Text, TouchableOpacity } from 'react-native';
+import TouchableScale from 'react-native-touchable-scale';
 import { Input, Button, ListItem } from 'react-native-elements';
 import styles from './styles.js';
 import { firebase } from './firebase.js';
+
+
+// actions and their attributes to be listed on home page
+const actions = [
+  {
+    title: 'Start patient analysis',
+    icon: require('../assets/analysis-icon.png'),
+    navigateTo: 'AnalysisStartScreen'
+  },
+  {
+    title: 'View patient data',
+    icon: require('../assets/patient-icon.png'),
+    navigateTo: 'PatientScreen'
+  },
+  {
+    title: 'View infection heatmap',
+    icon: require('../assets/heatmap-icon.png'),
+    navigateTo: 'HeatmapScreen'
+  },
+  {
+    title: 'About',
+    icon: require('../assets/about-icon.png'),
+    navigateTo: 'AboutScreen'
+  }
+];
+
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -33,7 +60,7 @@ export default class Home extends React.Component {
     });
   }
 
-  signIn = () => {
+  logIn = () => {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {
       this.setState({
         errorCode: null,
@@ -47,7 +74,7 @@ export default class Home extends React.Component {
     });
   }
 
-  signOut = () => {
+  logOut = () => {
     firebase.auth().signOut().catch(error => {
       console.error(error.code + ' => ' + error.message);
     });
@@ -62,45 +89,38 @@ export default class Home extends React.Component {
     // user logged in 
     } else if (this.state.cuser) {
       return (
-        <View style={styles.container}>
+        <View>
           <Text style={stylesHome.textTitle}>SchistoSpot</Text>
           
+          { // render ListItem's from actions array defined above
+            actions.map((a, i) => (
+              <ListItem
+                key={i}
+                Component={TouchableScale}
+                friction={90} // passed to TouchableScale
+                tension={100} // passed to TouchableScale
+                leftAvatar={{ source: a.icon }}
+                title={a.title}
+                chevron
+                containerStyle={{ backgroundColor: '#e4eeff' }}
+                style={{ marginBottom: 10 }}
+                onPress={() => navigate(a.navigateTo)}
+              />
+            ))
+          }
+
+          { /* last ListItem is for log out and is slightly different, so defined independently  */ }
           <ListItem
-            key={1}
-            leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
-            title={'Start patient analysis'}
-            bottomDivider
+            Component={TouchableScale}
+            friction={90} // passed to TouchableScale
+            tension={100} // passed to TouchableScale
+            leftAvatar={{ source: require('../assets/log-out-icon.png') }}
+            title={'Log out'}
             chevron
+            containerStyle={{ backgroundColor: '#e4eeff' }}
+            onPress={this.logOut}
           />
 
-          <TouchableOpacity style={stylesHome.touchableOpacityGoToCamera} onPress={() => navigate('CameraScreen')} >
-            <Text>Go to camera</Text>
-          </TouchableOpacity>
-
-
-          <Button
-            style={styles.button}
-            title='Start patient sample analysis'
-            onPress={() => navigate('AnalysisStartScreen')}
-          /> 
-
-          <Button
-            style={styles.button}
-            title='Go to heatmap'
-            onPress={() => navigate('HeatmapView')}
-          /> 
-
-          <Button
-            style={styles.button}
-            title='About'
-            onPress={() => navigate('About')}
-          /> 
-
-          <Button
-            style={styles.button}
-            title='Sign out'
-            onPress={this.signOut}
-          /> 
         </View>
       );
 
@@ -122,12 +142,12 @@ export default class Home extends React.Component {
             onChangeText={text => this.setState({ password: text })}
             placeholder='password'
             secureTextEntry={true}
-            onSubmitEditing={this.signIn}
+            onSubmitEditing={this.logIn}
           />
           <Button
             style={stylesHome.button}
-            title='Sign in'
-            onPress={this.signIn}
+            title='Log in'
+            onPress={this.logIn}
           /> 
           { this.state.errorMessage && 
             <Text style={stylesHome.TextErrorMessage}>{this.state.errorMessage}</Text>
@@ -154,7 +174,8 @@ const stylesHome = StyleSheet.create({
   textTitle: {
     fontSize: 30,
     marginTop: 40,
-    marginBottom: 40
+    marginBottom: 40,
+    marginLeft: 20
   },
   touchableOpacityGoToCamera: {
     marginBottom: 50,

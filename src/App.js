@@ -6,8 +6,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Home from './Home.js';
 import CameraScreen from './CameraScreen.js';
 import AnalysisStartScreen from './AnalysisStartScreen.js';
-import HeatmapView from './HeatmapView.js';
-import About from './About.js';
+import HeatmapScreen from './HeatmapScreen.js';
+import AboutScreen from './AboutScreen.js';
 
 
 
@@ -15,8 +15,8 @@ const MainNavigator = createStackNavigator({
   Home: Home,
   AnalysisStartScreen: AnalysisStartScreen,
   CameraScreen: CameraScreen,
-  HeatmapView: HeatmapView,
-  About: About,
+  HeatmapScreen: HeatmapScreen,
+  AboutScreen: AboutScreen,
 });
 
 const App = createAppContainer(MainNavigator);

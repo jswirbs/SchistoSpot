@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import styles from './styles.js';
 
 
-export default class About extends React.Component {
+export default class AboutScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
