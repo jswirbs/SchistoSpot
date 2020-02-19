@@ -7,6 +7,7 @@ import Home from './Home.js';
 import CameraScreen from './CameraScreen.js';
 import AnalysisStartScreen from './AnalysisStartScreen.js';
 import HeatmapView from './HeatmapView.js';
+import About from './About.js';
 
 
 
@@ -15,6 +16,7 @@ const MainNavigator = createStackNavigator({
   AnalysisStartScreen: AnalysisStartScreen,
   CameraScreen: CameraScreen,
   HeatmapView: HeatmapView,
+  About: About,
 });
 
 const App = createAppContainer(MainNavigator);

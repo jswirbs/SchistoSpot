@@ -92,6 +92,12 @@ export default class Home extends React.Component {
 
           <Button
             style={styles.button}
+            title='About'
+            onPress={() => navigate('About')}
+          /> 
+
+          <Button
+            style={styles.button}
             title='Sign out'
             onPress={this.signOut}
           /> 
