@@ -175,7 +175,8 @@ const stylesHome = StyleSheet.create({
     fontSize: 30,
     marginTop: 40,
     marginBottom: 40,
-    marginLeft: 20
+    marginLeft: 20,
+    color: '#4466ee'
   },
   touchableOpacityGoToCamera: {
     marginBottom: 50,
