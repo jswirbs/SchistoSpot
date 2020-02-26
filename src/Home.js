@@ -16,7 +16,7 @@ const actions = [
   {
     title: 'View patient data',
     icon: require('../assets/patient-icon.png'),
-    navigateTo: 'PatientScreen'
+    navigateTo: 'PatientConfirmScreen'
   },
   {
     title: 'View infection heatmap',

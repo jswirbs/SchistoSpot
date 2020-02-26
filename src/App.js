@@ -8,7 +8,8 @@ import CameraScreen from './CameraScreen.js';
 import AnalysisStartScreen from './AnalysisStartScreen.js';
 import HeatmapScreen from './HeatmapScreen.js';
 import AboutScreen from './AboutScreen.js';
-import PatientScreen from './PatientScreen.js';
+import PatientConfirmScreen from './PatientConfirmScreen.js';
+import PatientDataScreen from './PatientDataScreen.js';
 
 
 const MainNavigator = createStackNavigator({
@@ -17,7 +18,8 @@ const MainNavigator = createStackNavigator({
   CameraScreen: CameraScreen,
   HeatmapScreen: HeatmapScreen,
   AboutScreen: AboutScreen,
-  PatientScreen: PatientScreen,
+  PatientConfirmScreen: PatientConfirmScreen,
+  PatientDataScreen: PatientDataScreen,
 });
 
 const App = createAppContainer(MainNavigator);

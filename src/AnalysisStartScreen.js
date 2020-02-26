@@ -6,6 +6,10 @@ import { db, firebase } from './firebase.js';
 
 import styles from './styles.js';
 
+
+const inputRef = React.createRef();
+
+
 export default class AnalysisStartScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +17,10 @@ export default class AnalysisStartScreen extends React.Component {
       selectedIndex: 0
     };
     this.updateIndex = this.updateIndex.bind(this);
+  }
+
+  componentDidMount() {
+    inputRef.current.focus();
   }
 
   updateIndex = selectedIndex => {
@@ -133,6 +141,7 @@ export default class AnalysisStartScreen extends React.Component {
         <>
           <Text style={stylesASS.textHeader}>Enter existing patient information.</Text>
           <Input
+            ref={inputRef}
             containerStyle={styles.input}
             value={this.state.patientIdOrEmail}
             onChangeText={text => this.setState({ patientIdOrEmail: text })}
@@ -152,6 +161,7 @@ export default class AnalysisStartScreen extends React.Component {
         <>
           <Text style={stylesASS.textHeader}>Create new patient profile.</Text>
           <Input
+            ref={inputRef}
             containerStyle={styles.input}
             value={this.state.name}
             onChangeText={text => this.setState({ name: text })}
