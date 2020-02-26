@@ -151,7 +151,7 @@ export default class AnalysisStartScreen extends React.Component {
           />
           <Button
             style={styles.button}
-            title='Confirm this patient profile'
+            title='Confirm patient profile'
             onPress={this.confirmExistingPatientProfile}
           /> 
         </>

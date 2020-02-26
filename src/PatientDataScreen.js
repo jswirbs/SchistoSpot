@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, Text } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import styles from './styles.js';
 
@@ -28,7 +28,6 @@ export default class PatientDataScreen extends React.Component {
       db.collection('patients').doc(this.props.navigation.state.params.patientId).collection('diagnoses').get().then(querySnapshot => {
         let diagnoses = [];
         querySnapshot.forEach(function (doc) {
-          //console.log(doc.id, ' => ', doc.data());
           diagnoses.push(doc.data());
         });
         this.setState({diagnoses: diagnoses});
@@ -40,7 +39,7 @@ export default class PatientDataScreen extends React.Component {
 
   render() {
     return (
-      <View style={stylesPatientData.container}>
+      <ScrollView style={stylesPatientData.container}>
         <Text style={stylesPatientData.textTitle}>Patient data</Text>
         
         <Text style={stylesPatientData.textBody}>Name: {this.state.patientData ? this.state.patientData.name : null}</Text>
@@ -60,7 +59,7 @@ export default class PatientDataScreen extends React.Component {
           ))
         }
 
-      </View>
+      </ScrollView>
     )
   }
 }
