@@ -57,7 +57,7 @@ export default class HeatmapScreen extends React.Component {
             ))
           }
 
-          {
+          { /* doesn't work (also causes "the specified child already has a parent" bug on android)
             (this.state.infectionsCoordinates.length > 0) &&
               (
                 <Heatmap 
@@ -67,6 +67,7 @@ export default class HeatmapScreen extends React.Component {
                   gradient={{colors: ["#FF0000", "#FFFF00", "#00FF00"], startPoints: [0, .5, 1]}}
                 />
               )
+            */
           }
           
         </MapView>
