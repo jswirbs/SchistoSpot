@@ -10,7 +10,7 @@ export default class AboutScreen extends React.Component {
         <Text style={stylesAbout.textTitle}>About</Text>
         
         <Text>
-          SchistoSpot sfnwelfn weflkn welfk nwekfl weklf weklfnwelkfnewkfl newklfnwelk sfnwelfn weflkn welfk nwekfl weklf weklfnwelkfnewkfl newklfnwelk sfnwelfn weflkn welfk nwekfl weklf weklfnwelkfnewkfl newklfnwelk sfnwelfn weflkn welfk nwekfl weklf weklfnwelkfnewkfl newklfnwelk sfnwelfn weflkn welfk nwekfl weklf weklfnwelkfnewkfl newklfnwelk sfnwelfn weflkn welfk nwekfl weklf weklfnwelkfnewkfl newklfnwelk
+          The SchistoSpot product is targeted for both individual people, and clinicians or school nurses. With the SchistoSpot, a user will have the ability to test urine samples for the presence of schistosoma eggs, without the need for extra equipment or a professionally trained doctor. Our product utilizes computer vision software to circumvent the need for a medically trained professional’s eye to analyze sample images. As a result, immediate diagnosis of schistosomiasis will be possible, allowing for earlier treatment to individuals suffering from the disease. In addition, targeted treatment delivery to only those patients that are infected can be achieved, as opposed to the mass treatment to patient populations, which is the current treatment strategy.
         </Text>
 
         <Text style={stylesAbout.header}>

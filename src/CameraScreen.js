@@ -107,7 +107,7 @@ export default class CameraScreen extends React.Component {
             style={stylesCS.captureButton}
             onPress={this.takePicture}
           >
-            <Text style={stylesCS.captureButtonText}>Capture</Text>
+            <Text style={stylesCS.captureButtonText}>Start analysis</Text>
           </TouchableOpacity>
         </>
       );
